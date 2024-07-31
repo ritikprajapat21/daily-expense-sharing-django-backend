@@ -9,5 +9,5 @@ urlpatterns = [
     path('expense/all', views.get_expenses),
     path('expense/<int:id>', views.get_expense),
     path('expense/add', views.add_expense),
-    path('split', views.set_split),
+    path('split/add', views.set_split),
 ]

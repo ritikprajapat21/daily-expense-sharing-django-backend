@@ -43,13 +43,13 @@ def get_user(request, id):
 def add_expense(request):
     if request.method == 'POST':
         body = json.loads(request.body.decode('utf-8'))
-        user_id = body['userId']
+        user_id = body['user_id']
         total_amount = body['amount']
 
         try:
             user = User.objects.filter(pk=user_id).first()
 
-            Expense.objects.create(user=user, total_amount=total_amount)
+            Expense.objects.create(created_by=user, total_amount=total_amount)
             
             return JsonResponse({'message': 'Expense added successfully'}, status=201)
         except IntegrityError:
@@ -124,7 +124,7 @@ def set_split(request):
 
             if split_method == 'EQ':
                 # user_ids is a list of user ids
-                user_ids = body['userIds']
+                user_ids = body['user_ids']
                 users = User.objects.filter(id__in=user_ids)
                 splits = equal_split(expense, users)
             elif split_method == 'EX':
